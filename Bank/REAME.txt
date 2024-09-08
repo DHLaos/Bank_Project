@@ -1,0 +1,19 @@
+First to-do:
+I) Initial implementation.
+	1. Create:
+		1.1) nume, prenume	-done
+		1.2) CI (13Digits)	-done
+		1.3) Unique Bank ID randomly generated 'XY12345678'	-done
+		1.4) Iban	-done
+		1.5) 5Digit Hidden password (on cmd).	-done
+		1.4) Rights (0 - Owner, 1-Operator , 2 - User) //Implementez ulterior cand am read/write file.
+	2. Create:
+		2.1 Account Class with all the above information	-done minus Rights yet.
+	3. Write information in a file:
+		3.1 First manage to write into file. //accounts.txt	-done
+		3.2 Read from file	-created function, will be part of Rights.
+	4. Implement checks for existing users when creating Acc with info from 1 based on 1.2 & 1.3.	-done
+
+II) Login System?
+	Operators for adding/substracting balance
+	Transfering to someone else.
