@@ -131,6 +131,7 @@
     <ClCompile Include="AccountCreation.cpp" />
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="IdGenerator.cpp" />
+    <ClCompile Include="Login.cpp" />
     <ClCompile Include="NumPren.cpp" />
     <ClCompile Include="Password.cpp" />
   </ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="AccountCreation.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="IdGenerator.h" />
+    <ClInclude Include="Login.h" />
     <ClInclude Include="NumPren.h" />
     <ClInclude Include="Password.h" />
   </ItemGroup>

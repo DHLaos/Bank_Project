@@ -35,9 +35,9 @@ void FileHandler::saveAcc(const string& acc)
     }
 }
 
-vector<string> FileHandler::readAcc()
+vector<AccountCreation> FileHandler::readAcc()
 {
-    vector<string> accounts;
+    vector<AccountCreation> accounts;
 
     // Open the file for reading
     ifstream infile(name);  // Use ifstream to ensure we're in read mode
@@ -46,7 +46,19 @@ vector<string> FileHandler::readAcc()
         string line;
         while (getline(infile, line))  // Read each line from the file
         {
-            accounts.push_back(line);  // Store each line in the vector
+            stringstream ss2(line);
+            string nume, prenume, ID, CI, IBAN, pwd;
+            float balance;
+            getline(ss2, nume, ',');
+            getline(ss2, prenume, ',');
+            getline(ss2, CI, ',');
+            ss2 >> balance;
+            ss2.ignore(1, ',');
+            getline(ss2, ID, ',');
+            getline(ss2, IBAN, ',');
+            getline(ss2, pwd, ',');
+            
+            accounts.emplace_back(nume, prenume, CI, balance, ID, IBAN, pwd);// Store each line in the vector
         }
         infile.close();  // Close the file after reading
     }
@@ -56,6 +68,19 @@ vector<string> FileHandler::readAcc()
     }
 
     return accounts;  // Return the vector of accounts
+}
+
+AccountCreation FileHandler::authenticate(const string& id, const string& pass)
+{
+    vector<AccountCreation> accounts = readAcc();
+    for (AccountCreation& acc : accounts)
+    {
+        if (acc.getID() == id && acc.getPWD() == pass)
+        {
+            return acc; //Return account
+        }
+    }
+    return AccountCreation(); //Return null if nothing found.
 }
 
 bool FileHandler::isUnique(const string& value, FieldType fieldType) const
@@ -98,6 +123,29 @@ bool FileHandler::isUnique(const string& value, FieldType fieldType) const
     }
 
     return true;  // No duplicates found
+}
+
+void FileHandler::saveChanges(const AccountCreation& updateAcc)
+{
+    vector<AccountCreation> accounts = readAcc();
+
+    ofstream outfile(name, ios::trunc);
+    if (outfile.is_open())
+    {
+        for (AccountCreation& acc : accounts)
+        {
+            if (acc.getID() == updateAcc.getID())
+            {
+                acc = updateAcc;
+            }
+            outfile << acc.getNume() << "," << acc.getPrenume() << "," << acc.getCI() << "," << acc.getBalance() << "," << acc.getID() << "," << acc.getIBAN() << "," << acc.getPWD() << "\n";
+        }
+        outfile.close();
+    }
+    else
+    {
+        cout << "Unable to open file for writing" << endl;
+    }
 }
 
 FileHandler::~FileHandler()

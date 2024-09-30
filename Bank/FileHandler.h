@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include "AccountCreation.h"
 using namespace std;
 
 class FileHandler
@@ -17,7 +18,9 @@ public:
 
 	FileHandler(const string & name);
 	void saveAcc(const string& acc);
-	vector<string> readAcc();
+	void saveChanges(const AccountCreation& updateAcc);
+	vector<AccountCreation> readAcc();
+	AccountCreation authenticate(const string& id, const string& pass);
 	bool isUnique(const string& value, FieldType fieldType) const;
 	~FileHandler();
 };
